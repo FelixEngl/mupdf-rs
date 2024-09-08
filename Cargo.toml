@@ -31,6 +31,12 @@ sys-lib-zlib = ["mupdf-sys/sys-lib-zlib"]
 sys-lib-leptonica = ["mupdf-sys/sys-lib-leptonica"]
 # Use system tesseract
 sys-lib-tesseract = ["mupdf-sys/sys-lib-tesseract"]
+
+# Sets the runtime libraray generation to MD and not MT
+sys-dynamic-linking = ["mupdf-sys/sys-dynamic-linking"]
+# Always forces a release. Even when compiling for debug
+sys-force-release = ["mupdf-sys/sys-force-release"]
+
 tesseract = ["mupdf-sys/tesseract"]
 js = ["mupdf-sys/js"]
 xps = ["mupdf-sys/xps"]
@@ -41,6 +47,7 @@ html = ["mupdf-sys/html"]
 epub = ["mupdf-sys/epub"]
 all-fonts = ["mupdf-sys/all-fonts"]
 system-fonts = ["font-kit"]
+
 
 [dependencies]
 mupdf-sys = { version = "0.4.4", path = "mupdf-sys" }

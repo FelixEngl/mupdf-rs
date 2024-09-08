@@ -273,10 +273,16 @@ fn build_libmupdf() {
     } else {
         "Win32"
     };
-    let profile = match &*env::var("PROFILE").unwrap_or("debug".to_owned()) {
-        "bench" | "release" => "Release",
-        _ => "Debug",
-    };
+    let profile =
+        if cfg!(not(feature = "sys-force-release")) {
+            "Release"
+        } else {
+            match &*env::var("PROFILE").unwrap_or("debug".to_owned()) {
+                "bench" | "release" => "Release",
+                _ => "Debug",
+            }
+        };
+
     let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
     let build_dir = out_dir.join("build");
     t!(fs::create_dir_all(&build_dir));
@@ -315,7 +321,11 @@ fn build_libmupdf() {
             cl_env.push("/DFZ_ENABLE_JS#0".to_string());
         }
         // Enable parallel compilation
-        cl_env.push("/MP".to_string());
+        if cfg!(feature = "sys-dynamic-linking") {
+            cl_env.push("/MD".to_string());
+        } else {
+            cl_env.push("/MP".to_string());
+        }
         let d = msbuild
             .args(&[
                 "platform\\win32\\mupdf.sln",

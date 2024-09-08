@@ -76,6 +76,11 @@ sys-lib-zlib = []
 sys-lib-leptonica = []
 # Use system tesseract
 sys-lib-tesseract = []
+# Use dynamic linking
+sys-dynamic-linking = []
+# Force to always use the release version
+sys-force-release = []
+
 all-fonts = []
 js = []
 xps = []
