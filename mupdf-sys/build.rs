@@ -274,7 +274,7 @@ fn build_libmupdf() {
         "Win32"
     };
     let profile =
-        if cfg!(not(feature = "sys-force-release")) {
+        if cfg!(feature = "sys-force-release") {
             "Release"
         } else {
             match &*env::var("PROFILE").unwrap_or("debug".to_owned()) {
